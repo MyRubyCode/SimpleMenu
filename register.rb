@@ -1,6 +1,43 @@
+@courses_arr = Array.new
+@userInput
+
+def select_menu_action(var)
+    if @userInput == 1
+    	print_course_list
+    elsif @userInput == 2
+    	register
+    elsif @userInput == 3
+    	add_course
+    elsif @userInput == 4
+    	print_something(@userInput)
+    elsif @userInput == 5
+    	print_something(@userInput)
+    else
+    	puts "exit"
+    end
+end
+
+def print_menu
+    welcomStr = "\n********************************
+welcome to the registration site
+********************************\n
+Please enter your choice\n
+1. List of courses\n
+2. Register students\n
+3. Add course\n
+4. Remove course\n
+5. Stodent info\n
+6. Quit"
+    
+    puts welcomStr
+    
+end
+
+
 def print_something(var)
 	puts "user choise from function: #{var}"
 end
+
 
 def register()
 	puts "Enter Your Name: "
@@ -12,38 +49,28 @@ def register()
 	puts "\n---------------------\nUser Information:\nUser Name: #{userName}\nUser Age: #{userAge}\nUser Major: #{userMajor}\n---------------------\n\n"
 end
 
-welcomStr = "\n********************************
-welcome to the registration site
-********************************\n
-Please enter your choice\n
-1. List of courses\n
-2. Register students\n
-3. Add course\n
-4. Remove course\n
-5. Stodent info\n
-6. Quit"
 
-puts welcomStr
-userInput = gets.chomp.to_i
-
-while userInput < 1 or userInput > 6
-	userInput = gets.chomp.to_i
-end
-
-if userInput == 1
-	print_something(userInput)
-elsif userInput == 2
-	register
-elsif userInput == 3
-	print_something(userInput)
-elsif userInput == 4
-	print_something(userInput)
-elsif userInput == 5
-	print_something(userInput)
-else
-	puts "exit"
+def add_course()
+   puts "Enter course name: "
+   course_name = gets.chomp
+   @courses_arr.push(course_name)
 end
 
 
+def print_course_list()
+    puts "\n---------------------\nCourses Information:\n"
+    @courses_arr.each {|item| puts item } 
+    puts "---------------------\n"
+end
 
 
+while 1 == 1
+    print_menu
+    @userInput = gets.chomp.to_i
+
+    while @userInput < 1 or @userInput > 6
+    	@userInput = gets.chomp.to_i
+    end
+
+    select_menu_action(@userInput)
+end
