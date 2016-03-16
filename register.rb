@@ -1,4 +1,5 @@
 @courses_arr = Array.new
+@users_arr = Array.new
 @userInput
 
 def select_menu_action(var)
@@ -42,11 +43,16 @@ end
 def register()
 	puts "Enter Your Name: "
 	userName = gets.chomp
+	@users_arr.push(userName)
+	
 	puts "Enter Your Age: "
 	userAge = gets.chomp
 	puts "Enter Your Major: "
 	userMajor = gets.chomp
-	puts "\n---------------------\nUser Information:\nUser Name: #{userName}\nUser Age: #{userAge}\nUser Major: #{userMajor}\n---------------------\n\n"
+	
+	print_users_list
+	
+	#puts "\n---------------------\nUser Information:\n\nUser Name: #{userName}\nUser Age: #{userAge}\nUser Major: #{userMajor}\n---------------------\n\n"
 end
 
 
@@ -58,8 +64,15 @@ end
 
 
 def print_course_list()
-    puts "\n---------------------\nCourses Information:\n"
+    puts "\n---------------------\nCourses Information:\n\n"
     @courses_arr.each {|item| puts item } 
+    puts "---------------------\n"
+end
+
+
+def print_users_list()
+    puts "\n---------------------\nUsers Information:\n\n"
+   @users_arr.each {|item| puts item } 
     puts "---------------------\n"
 end
 
