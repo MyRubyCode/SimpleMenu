@@ -1,3 +1,5 @@
+require 'Course'
+
 @courses_arr = Array.new
 @users_arr = Array.new
 @userInput
