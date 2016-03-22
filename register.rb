@@ -1,6 +1,16 @@
 @courses_arr = Array.new
 @users_arr = Array.new
 @userInput
+@courses = Array.new
+
+def print_courses_info
+	@courses.each {|c| c.print_line}
+end
+
+def add_course_object()
+	# need to implement the course details from the user input
+	@courses << Course.new()
+end
 
 def select_menu_action(var)
     if @userInput == 1

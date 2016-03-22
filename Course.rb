@@ -9,4 +9,7 @@ class Course
 		@room = room
 	end
 	
+	def print_line()
+		printf("%d %-20s %-20s %-20s %-20d\n", @id, @name, @teacher, @day, @room )
+	end	
 end
