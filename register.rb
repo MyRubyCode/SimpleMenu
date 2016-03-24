@@ -7,7 +7,9 @@ require_relative 'Course'
 
 
 def print_courses_info
-	@courses.each {|c| c.print_line}
+	puts "\n---------------------\nCourses Information:\n\n"
+    @courses.each {|item| puts item.print_line } 
+    puts "---------------------\n"
 end
 
 def add_course_object()
@@ -17,7 +19,7 @@ end
 
 def select_menu_action(var)
     if @userInput == 1
-    	print_course_list
+    	print_courses_info
     elsif @userInput == 2
     	register
     elsif @userInput == 3
