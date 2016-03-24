@@ -1,9 +1,10 @@
-require 'Course'
+require_relative 'Course'
 
 @courses_arr = Array.new
 @users_arr = Array.new
-@userInput
 @courses = Array.new
+@userInput
+
 
 def print_courses_info
 	@courses.each {|c| c.print_line}

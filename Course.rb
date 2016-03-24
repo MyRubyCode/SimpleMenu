@@ -1,5 +1,5 @@
 class Course
-	@id; @name; @teacher; @day; @room
+	@id; @name; @teacher; @day; @room; 
 	
 	def initialize(id, name, teacher, day, room)
 		@id = id
@@ -10,6 +10,6 @@ class Course
 	end
 	
 	def print_line()
-		printf("%d %-20s %-20s %-20s %-20d\n", @id, @name, @teacher, @day, @room )
+		printf("%d %-20s %-20s %-20s %-20s\n", @id, @name, @teacher, @day, @room )
 	end	
 end
