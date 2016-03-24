@@ -5,25 +5,34 @@ require_relative 'Course'
 @courses = Array.new
 @userInput
 
-
 def print_courses_info
 	puts "\n---------------------\nCourses Information:\n\n"
-    @courses.each {|item| puts item.print_line } 
-    puts "---------------------\n"
+    	@courses.each {|item| puts item.print_line } 
+    	puts "---------------------\n"
 end
 
 def add_course_object()
-	# need to implement the course details from the user input
-	@courses << Course.new()
+	puts "Enter course Id: "	
+	courseId = gets.chomp.to_i	
+	puts "Enter course name: "
+	courseName = gets.chomp
+	puts "Enter course teacher: "
+	courseTeacher = gets.chomp
+	puts "Enter course day: "
+	courseDay = gets.chomp
+	puts "Enter course room: "
+	courseRoom = gets.chomp
+	@courses << Course.new(courseId, courseName, courseTeacher, courseDay, courseRoom)
+	
 end
 
 def select_menu_action(var)
     if @userInput == 1
-    	print_courses_info
+	print_courses_info
     elsif @userInput == 2
     	register
     elsif @userInput == 3
-    	add_course
+    	add_course_object
     elsif @userInput == 4
     	print_something(@userInput)
     elsif @userInput == 5
@@ -80,7 +89,7 @@ end
 
 def print_course_list()
     puts "\n---------------------\nCourses Information:\n\n"
-    @courses_arr.each {|item| puts item } 
+    @courses_arr.each {|c| c.print_line  } 
     puts "---------------------\n"
 end
 
