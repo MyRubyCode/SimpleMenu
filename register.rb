@@ -1,14 +1,36 @@
 require_relative 'Course'
+require "rubygems"
+require "mysql"
 
-@courses_arr = Array.new
-@users_arr = Array.new
 @courses = Array.new
 @userInput
 
+@@dbcon = Mysql.new('localhost', 'student', 'password', 'student') 
+
+def upload_courses_from_db
+	rs = @@dbcon.query('select * from courses') 
+	rs.each do |row| 
+		courseId = row[0]
+		courseName = row[1]
+		courseTeacher = row[2]
+		courseDay = row[3]
+		courseRoom = row[4]
+		@courses << Course.new(courseId, courseName, courseTeacher, courseDay, courseRoom)
+	end
+end
+
+def list_courses_from_db
+	rs = @@dbcon.query('select * from courses')  
+	rs.each do |row| 
+		puts row.join("\s") 
+	end
+end
+
 def print_courses_info
-	puts "\n---------------------\nCourses Information:\n\n"
+
+	puts "\n--------------------------------------------------------------------------------\nCourses Information:\n\n"
     	@courses.each {|item| puts item.print_line } 
-    	puts "---------------------\n"
+    	puts "--------------------------------------------------------------------------------\n"
 end
 
 def add_course_object()
@@ -22,28 +44,27 @@ def add_course_object()
 	courseDay = gets.chomp
 	puts "Enter course room: "
 	courseRoom = gets.chomp
-	@courses << Course.new(courseId, courseName, courseTeacher, courseDay, courseRoom)
-	
+	#@courses << Course.new(courseId, courseName, courseTeacher, courseDay, courseRoom)	
 end
 
 def select_menu_action(var)
-    if @userInput == 1
+	if @userInput == 1
 	print_courses_info
-    elsif @userInput == 2
-    	register
-    elsif @userInput == 3
-    	add_course_object
-    elsif @userInput == 4
-    	print_something(@userInput)
-    elsif @userInput == 5
-    	print_something(@userInput)
-    else
-    	puts "exit"
-    end
+	elsif @userInput == 2
+	register
+	elsif @userInput == 3
+	add_course_object
+	elsif @userInput == 4
+	print_something(@userInput)
+	elsif @userInput == 5
+	print_users_list
+	else
+	puts "exit"
+	end
 end
 
 def print_menu
-    welcomStr = "\n********************************
+	welcomStr = "\n********************************
 welcome to the registration site
 ********************************\n
 Please enter your choice\n
@@ -51,10 +72,10 @@ Please enter your choice\n
 2. Register students\n
 3. Add course\n
 4. Remove course\n
-5. Stodent info\n
+5. Student info\n
 6. Quit"
-    
-    puts welcomStr
+
+	puts welcomStr
     
 end
 
@@ -65,49 +86,43 @@ end
 
 
 def register()
-	puts "Enter Your Name: "
+	puts "Enter Name: "
 	userName = gets.chomp
-	@users_arr.push(userName)
-	
-	puts "Enter Your Age: "
-	userAge = gets.chomp
-	puts "Enter Your Major: "
+	puts "Enter Age: "
+	userAge = gets.chomp.to_i
+	puts "Enter Major: "
 	userMajor = gets.chomp
-	
+	puts "Enter Email: "
+	userEmail = gets.chomp
+
+	rs = @@dbcon.query("INSERT INTO students (name, age, major, email) VALUES ('#{userName}', #{userAge}, '#{userMajor}', '#{userEmail}')");
 	print_users_list
 	
-	#puts "\n---------------------\nUser Information:\n\nUser Name: #{userName}\nUser Age: #{userAge}\nUser Major: #{userMajor}\n---------------------\n\n"
-end
-
-
-def add_course()
-   puts "Enter course name: "
-   course_name = gets.chomp
-   @courses_arr.push(course_name)
-end
-
-
-def print_course_list()
-    puts "\n---------------------\nCourses Information:\n\n"
-    @courses_arr.each {|c| c.print_line  } 
-    puts "---------------------\n"
 end
 
 
 def print_users_list()
-    puts "\n---------------------\nUsers Information:\n\n"
-   @users_arr.each {|item| puts item } 
-    puts "---------------------\n"
+	rs = @@dbcon.query('select * from students')
+	puts "\n---------------------\nUsers Information:\n\n"
+	rs.each do |row| 
+		puts row.join("\s") 
+	end 
+	puts "---------------------\n"
+	
 end
 
+begin
+	# only one time we upload the courses from MariaDB
+	upload_courses_from_db
 
-while 1 == 1
-    print_menu
-    @userInput = gets.chomp.to_i
+	while 1 == 1
+		print_menu
+		@userInput = gets.chomp.to_i
 
-    while @userInput < 1 or @userInput > 6
-    	@userInput = gets.chomp.to_i
-    end
+		while @userInput < 1 or @userInput > 6
+		@userInput = gets.chomp.to_i
+		end
 
-    select_menu_action(@userInput)
+		select_menu_action(@userInput)
+	end
 end
