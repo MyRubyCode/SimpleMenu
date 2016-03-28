@@ -5,6 +5,16 @@ require "mysql"
 @courses = Array.new
 @userInput
 
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# this is MySql connection for MariaDB database.
+# in our database (student) we have create three tables with the commands:
+# ------------------------------------------------------------------------
+# >> create database if not exists student;
+# >> use student;
+# >> create table if not exists students (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(40) NOT NULL, age INT (3), major VARCHAR(40) NOT NULL, email VARCHAR(100));
+# >> create table if not exists classes (studentId INT(3), courseId INT(3));
+# >> create table if not exists courses (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50) NOT NULL, teacher VARCHAR(30), day VARCHAR(4) NOT NULL, room INT(3));
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 @@dbcon = Mysql.new('localhost', 'student', 'password', 'student') 
 
 def upload_courses_from_db
