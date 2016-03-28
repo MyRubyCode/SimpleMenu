@@ -10,6 +10,6 @@ class Course
 	end
 	
 	def print_line()
-		printf("%d %-20s %-20s %-20s %-20s\n", @id, @name, @teacher, @day, @room )
+		printf("%d %-20s %-20s %-20s %-20s", @id, @name, @teacher, @day, @room )
 	end	
 end
